@@ -4,7 +4,8 @@ Client-HUD für Minecraft Java 26.2 (Fabric) plus Paper-Bridge für die Serverda
 Das HUD kann Geld, Wantedpunkte, Drogen-Anzahl, Fraktion, Rang, FPS und Spielzeit
 als einzeln verschiebbare und ein-/ausblendbare Widgets anzeigen. Ein
 Tasten-Widget zeigt WASD, Leertaste, Shift und Ctrl während des Spielens an;
-Tastendrücke in geöffneten Menüs oder im Chat werden nicht angezeigt.
+gedrückte Tasten werden dezent aufgehellt und beim Loslassen sofort wieder
+normal dargestellt. Tastendrücke in geöffneten Menüs oder im Chat werden nicht angezeigt.
 
 ## Bauen
 
@@ -21,17 +22,21 @@ benötigt gemäß seiner Plugin-Metadaten zusätzlich LevelSystem.
 
 ## Widgets einstellen
 
-Mit `H` öffnet sich das HUD-Studio, ohne das Spiel zu pausieren. Im Escape-Menü
-gibt es zusätzlich direkt über „Zurück zum Spiel“ die Schaltfläche
-„BETTERSOUTH - HUD & WIDGETS“; beim Schließen kehrst du zum Escape-Menü zurück.
+Mit `H` öffnet sich zunächst die Studio-Auswahl. Dort kannst du Widgets oder
+Hotkeys bearbeiten; `K` öffnet weiterhin direkt das Hotkey-Studio. Im Escape-Menü
+gibt es zusätzlich direkt über „Zurück zum Spiel“ den Vanilla-gestalteten Button
+„BetterSouth HUD“. Das Schließen-Feld oben rechts ist anklickbar; aus dem
+Escape-Menü kehrst du dorthin zurück.
+Das Studio ist leicht transparent, sodass das Spiel im Hintergrund sichtbar bleibt.
 Links kannst du Widgets ein- oder ausblenden, alle Widgets aktivieren oder das Layout
-zurücksetzen. Widgets lassen sich bis auf 50 % verkleinern. Rechts stellst du
+zurücksetzen. Widgets lassen sich bis auf 50 % verkleinern. In der Vorschau ziehst
+du sie zum Positionieren; halte den markierten Seitenrand fest und ziehe, um ein
+Widget größer oder kleiner zu machen. Rechts stellst du
 für jedes Widget den Hintergrund, die Deckkraft,
 die Kontur, das Symbol beziehungsweise Spotify-Cover und die Akzentfarbe ein.
-Außerdem kannst du dort Größe und Position zurücksetzen. In der Bildschirm-
-Vorschau ziehst du Widgets mit der Maus an die gewünschte Stelle; Mausrad oder
-Größenregler passen die Größe, das Mausrad über dem Deckkraftregler die Deckkraft
-an. Änderungen werden automatisch in `config/bettersouth-hud.properties` im
+Außerdem kannst du dort Größe und Position zurücksetzen. Mausrad oder Größenregler
+passen ebenfalls die Größe an; das Mausrad über dem Deckkraftregler ändert die
+Deckkraft. Änderungen werden automatisch in `config/bettersouth-hud.properties` im
 Minecraft-Spielverzeichnis gespeichert. Drücke `Esc`, um das Menü zu schließen.
 
 Spieler mit BetterSouth-Mod erhalten in der Spielerliste ein grünes Häkchen.

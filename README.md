@@ -2,11 +2,14 @@
 
 Client-HUD für Minecraft Java 26.2 (Fabric) plus Paper-Bridge für die Serverdaten.
 Das HUD kann Geld, Wantedpunkte, Drogen-Anzahl, Fraktion, Rang, FPS und Spielzeit
-als einzeln verschiebbare und ein-/ausblendbare Widgets anzeigen.
+als einzeln verschiebbare und ein-/ausblendbare Widgets anzeigen. Ein
+Tasten-Widget zeigt WASD, Leertaste, Shift und Ctrl während des Spielens an;
+Tastendrücke in geöffneten Menüs oder im Chat werden nicht angezeigt.
 
 ## Bauen
 
-- Client-Mod: `cd fabric-mod` und `.\gradlew.bat build`. Das JAR liegt danach in
+- Client-Mod: .NET 10 SDK installieren, dann `cd fabric-mod` und
+  `.\gradlew.bat build`. Das JAR liegt danach in
   `fabric-mod/build/libs/`.
 - Paper-Bridge: `cd paper-bridge` und `mvn package`. Das Plugin-JAR liegt danach in
   `paper-bridge/target/BetterSouth-HUD-Bridge.jar`.
@@ -18,12 +21,18 @@ benötigt gemäß seiner Plugin-Metadaten zusätzlich LevelSystem.
 
 ## Widgets einstellen
 
-Mit `H` öffnet sich das HUD-Studio, ohne das Spiel zu pausieren. Links kannst du
-Widgets ein- oder ausblenden und ihre Größe in Prozent anpassen. In der
-Bildschirm-Vorschau ziehst du Widgets mit der Maus an die gewünschte Stelle;
-das Mausrad skaliert das ausgewählte Widget ebenfalls. Änderungen werden
-automatisch in `config/bettersouth-hud.properties` im Minecraft-Spielverzeichnis
-gespeichert. Drücke `Esc`, um das Menü zu schließen.
+Mit `H` öffnet sich das HUD-Studio, ohne das Spiel zu pausieren. Im Escape-Menü
+gibt es zusätzlich direkt über „Zurück zum Spiel“ die Schaltfläche
+„BETTERSOUTH - HUD & WIDGETS“; beim Schließen kehrst du zum Escape-Menü zurück.
+Links kannst du Widgets ein- oder ausblenden, alle Widgets aktivieren oder das Layout
+zurücksetzen. Widgets lassen sich bis auf 50 % verkleinern. Rechts stellst du
+für jedes Widget den Hintergrund, die Deckkraft,
+die Kontur, das Symbol beziehungsweise Spotify-Cover und die Akzentfarbe ein.
+Außerdem kannst du dort Größe und Position zurücksetzen. In der Bildschirm-
+Vorschau ziehst du Widgets mit der Maus an die gewünschte Stelle; Mausrad oder
+Größenregler passen die Größe, das Mausrad über dem Deckkraftregler die Deckkraft
+an. Änderungen werden automatisch in `config/bettersouth-hud.properties` im
+Minecraft-Spielverzeichnis gespeichert. Drücke `Esc`, um das Menü zu schließen.
 
 Spieler mit BetterSouth-Mod erhalten in der Spielerliste ein grünes Häkchen.
 Diese Markierung erscheint, wenn ihr Client der Server-Bridge seine Anwesenheit
@@ -39,6 +48,32 @@ Spielerverbindung an den Server oder die Nachricht über den normalen Chat.
 Server-Berechtigungen und Chatregeln gelten weiterhin. Hotkeys funktionieren nur
 während des Spiels und werden im Clientprofil gespeichert. Die Tasten belegst
 du direkt im Hotkey-Studio über „Taste: … Klicken zum Ändern“.
+
+## Emote-Rad
+
+Mit `G` öffnest du das Emote-Rad. Wähle per Mausklick eines der vier Emotes:
+Winken, Jubeln, Klatschen oder Tanzen. Die Paper-Bridge spielt die Animationen
+serverseitig ab, sodass auch Spieler ohne BetterSouth-Mod die Armbewegungen,
+Partikel und Sounds sehen beziehungsweise hören. Für das Rad wird die Fabric-Mod
+benötigt; auf dem Server muss die BetterSouth-Paper-Bridge installiert sein.
+Zwischen Emotes gilt eine kurze Abklingzeit.
+
+## Spotify-Overlay (Windows)
+
+Das Spotify-Widget zeigt Titel und Interpret des aktiven Spotify-Desktopplayers
+an; pausierte Titel werden markiert. Eine Spotify-Anmeldung oder ein Client
+Secret ist nicht erforderlich. Unter Windows x64 startet die Mod einen
+mitgelieferten, unsichtbaren Begleiter automatisch und beendet ihn mit Minecraft;
+Spieler müssen weder .NET installieren noch den Begleiter separat starten. Die
+Windows-Mediensteuerung muss für den Spotify-Desktopplayer verfügbar sein. Unter
+anderen Betriebssystemen bleibt das Widget ohne Titeldaten. Zum Bauen der Mod
+aus dem Quellcode wird das .NET 10 SDK benötigt; das fertige Mod-JAR bringt den
+Begleiter bereits mit. Die drei Schaltflächen des Spotify-Widgets steuern
+vorherigen Titel, Pause/Fortsetzen und nächsten Titel. Sie sind im `H`-HUD-Studio
+und im normalen HUD anklickbar, sobald ein Minecraft-Bildschirm den Mauszeiger
+freigibt (zum Beispiel Chat oder Inventar). Die Steuerelemente und der Titeltext
+werden gemeinsam mit dem Widget skaliert. Das Widget zeigt außerdem das vom
+Windows-Medienplayer bereitgestellte Cover an, sofern eines verfügbar ist.
 
 ## Drogen-Erkennung konfigurieren
 

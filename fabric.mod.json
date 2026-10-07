@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "bettersouth_hud",
+  "version": "${version}",
+  "name": "BetterSouth HUD",
+  "description": "Konfigurierbares HUD für BetterSouth RP-Server.",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "de.bettersouth.hud.BetterSouthHudClient"
+    ]
+  },
+  "mixins": [
+    "bettersouth_hud.client.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": ">=26.2 <26.3",
+    "fabric-api": "*"
+  }
+}

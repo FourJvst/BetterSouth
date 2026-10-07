@@ -1,0 +1,6 @@
+update-interval-ticks: 20
+drugs:
+  # Inventory stacks matching any configured material or name fragment are counted once.
+  # Leave both lists empty until your drug item materials or names are known.
+  materials: []
+  name-contains: []

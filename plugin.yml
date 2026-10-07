@@ -1,0 +1,6 @@
+name: BetterSouthHudBridge
+version: 1.0.0
+main: de.bettersouth.hudbridge.BetterSouthHudBridge
+api-version: '1.21'
+softdepend: [MoneySystem, Fraktionssystem, DrugsPlugin]
+description: Sends BetterSouth player HUD data to the Fabric client mod.

@@ -1,0 +1,83 @@
+plugins {
+	id "net.fabricmc.fabric-loom" version "${loom_version}"
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+	archivesName = "bettersouth-hud"
+}
+
+loom {
+	splitEnvironmentSourceSets()
+
+	mods {
+		"bettersouth_hud" {
+			sourceSet sourceSets.main
+			sourceSet sourceSets.client
+		}
+	}
+}
+
+def spotifyHelperPublishDir = layout.buildDirectory.dir("generated/spotify-helper-publish")
+def spotifyHelperResourcesDir = layout.buildDirectory.dir("generated/spotify-helper-resources")
+
+sourceSets.client.resources.srcDir(spotifyHelperResourcesDir)
+
+tasks.register("publishSpotifyHelper", Exec) {
+	def helperProject = file("../spotify-helper/BetterSouth.SpotifyHelper.csproj")
+	inputs.files(fileTree("../spotify-helper") {
+		exclude("bin/**", "obj/**")
+	})
+	outputs.file(spotifyHelperPublishDir.map { it.file("BetterSouth.SpotifyHelper.exe") })
+	commandLine(
+			"dotnet", "publish", helperProject.absolutePath,
+			"--configuration", "Release",
+			"--runtime", "win-x64",
+			"--self-contained", "true",
+			"-p:PublishSingleFile=true",
+			"-p:IncludeNativeLibrariesForSelfExtract=true",
+			"--output", spotifyHelperPublishDir.get().asFile.absolutePath
+	)
+}
+
+tasks.register("copySpotifyHelper", Copy) {
+	dependsOn("publishSpotifyHelper")
+	from(spotifyHelperPublishDir)
+	include("BetterSouth.SpotifyHelper.exe")
+	into(spotifyHelperResourcesDir.map { it.dir("assets/bettersouth_hud") })
+	rename("BetterSouth.SpotifyHelper.exe", "bettersouth-spotify-helper.exe")
+}
+
+tasks.named("processClientResources") {
+	dependsOn("copySpotifyHelper")
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+}
+
+processResources {
+	inputs.property "version", project.version
+	filesMatching("fabric.mod.json") {
+		expand "version": project.version
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	options.release = 25
+}
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_25
+	targetCompatibility = JavaVersion.VERSION_25
+	withSourcesJar()
+}
+
+tasks.named("sourcesJar") {
+	dependsOn("copySpotifyHelper")
+	exclude("assets/bettersouth_hud/bettersouth-spotify-helper.exe")
+}

@@ -100,3 +100,15 @@ abgerufen. Beim Start prüft die Bridge diese Schnittstellen und protokolliert
 fehlende oder inkompatible Plugins. Auf dem Netzwerkkanal `bettersouth:hud`
 werden nur HUD-Daten des jeweils betroffenen Spielers an dessen Client gesendet.
 Die Währung wird aus der `currency`-Einstellung des MoneySystem-Plugins übernommen.
+
+
+## Spotify-Helper (eingebettete EXE) – Herkunft
+
+Die in der Mod-JAR enthaltene Datei `assets/bettersouth_hud/bettersouth-spotify-helper.exe` ist **keine vorkompilierte Fremddatei**. Sie wird beim Build aus dem Quellcode in `spotify-helper/` erzeugt:
+
+- Quellcode: `spotify-helper/Program.cs`, Projekt `spotify-helper/BetterSouth.SpotifyHelper.csproj` (C#, .NET 10, Lizenz wie die Mod)
+- Einzige Abhängigkeit: NuGet `Dubya.WindowsMediaController` (Zugriff auf die Windows-Mediensteuerung / SMTC)
+- Build: `dotnet publish spotify-helper -c Release -r win-x64 --self-contained -p:PublishSingleFile=true` (wird von `fabric-mod/build.gradle` automatisch ausgeführt)
+- Funktion: liest Titel/Cover der aktuellen Wiedergabe aus Windows und führt Play/Pause/Skip aus. Kein Netzwerkzugriff, kein Login. Kommunikation mit der Mod nur über lokale Dateien in `config/bettersouth-hud/spotify/`.
+
+Reproduzieren: Repository klonen, `.NET 10 SDK` + JDK 25 installieren, `gradlew build` im Ordner `fabric-mod`.
